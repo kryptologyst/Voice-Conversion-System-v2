@@ -1,0 +1,67 @@
+# Voice Conversion System Configuration
+
+# Data Configuration
+data:
+  sample_rate: 22050
+  hop_length: 256
+  win_length: 1024
+  n_fft: 1024
+  n_mels: 80
+  f_min: 0
+  f_max: 8000
+  preemphasis: 0.97
+  
+# Model Configuration
+model:
+  type: "autoencoder"  # Options: autoencoder, cyclegan, simple_mapping
+  encoder_dim: 256
+  decoder_dim: 256
+  latent_dim: 64
+  num_layers: 4
+  dropout: 0.1
+  
+# Training Configuration
+training:
+  batch_size: 16
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 1e-5
+  gradient_clip_norm: 1.0
+  save_interval: 10
+  log_interval: 100
+  
+# Evaluation Configuration
+evaluation:
+  metrics: ["mcd", "f0_rmse", "fad", "pesq", "stoi"]
+  test_split: 0.2
+  val_split: 0.1
+  
+# Audio Processing
+audio:
+  max_length: 10.0  # seconds
+  min_length: 1.0   # seconds
+  normalize: true
+  trim_silence: true
+  
+# Augmentation
+augmentation:
+  enabled: true
+  noise_factor: 0.01
+  pitch_shift: 2
+  time_stretch: 0.1
+  reverb_prob: 0.3
+  
+# Device Configuration
+device: "auto"  # auto, cpu, cuda, mps
+
+# Logging
+logging:
+  level: "INFO"
+  log_dir: "logs"
+  tensorboard: true
+  
+# Privacy and Ethics
+privacy:
+  anonymize_filenames: true
+  no_pii_logging: true
+  research_only: true
